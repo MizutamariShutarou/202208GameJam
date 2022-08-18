@@ -31,6 +31,7 @@ public class Enemy1Controller : MonoBehaviour
     }
     void Start()
     {
+        transform.localScale = new Vector3(-1f, 1f, 1f);
         _playerHide = GetComponent<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
         _enemyMove = DOTween.Sequence();
@@ -73,7 +74,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             Debug.Log("‰E‚É“–‚½‚Á‚Æ‚¤‚æ" + hit.collider.gameObject.name);
             _enemyMove.Pause();
-            _rb.velocity = new Vector2(1, 0);
+            _rb.velocity = (hit.collider.transform.position - this.transform.position).normalized;
         }
     }
 
@@ -90,10 +91,12 @@ public class Enemy1Controller : MonoBehaviour
     {
         _lineLength *= -1f;
         Debug.Log("1");
+        transform.localScale = Vector3.one;
     }
     public void OnFlipRight()
     {
         _lineLength *= -1f;
         Debug.Log("2");
+        transform.localScale = new Vector3(-1f, 1f, 1f);
     }
 }
