@@ -61,11 +61,11 @@ public class PlayerMove : MonoBehaviour
         //    Enemy1Controller.instance.EnemyDestroy();
         //    _isKilled = false;
         //}
-        if(Enemy1Controller.instance.IsKilled && Input.GetMouseButtonDown(0))
-        {
-            Enemy1Controller.instance.EnemyDestroy();
-            Enemy1Controller.instance.IsKilled = false;
-        }
+        //if(Enemy1Controller.instance.IsKilled && Input.GetMouseButtonDown(0))//EnemyScript‚ð‚Ç‚¤‚·‚é‚©
+        //{
+        //    Enemy1Controller.instance.EnemyDestroy();
+        //    Enemy1Controller.instance.IsKilled = false;
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D other)
