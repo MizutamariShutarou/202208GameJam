@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField,Tooltip("ジャンプ力")] 
     int _jumpForce;
     private int _jumpCount = 0;
+    PlayerHide _playerHide;
     SpriteRenderer _sr;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
+        //Kill();
     }
     void Move()
     {
@@ -35,12 +37,12 @@ public class PlayerMove : MonoBehaviour
         // 移動する向きとスピードを代入 
         GetComponent<Rigidbody2D>().velocity = direction * speed;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))// && !_playerHide.IsHided)
         {
             _sr.flipX = true;
             Debug.Log("a");
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) )//&& !_playerHide.IsHided)
         {
             _sr.flipX = false;
             Debug.Log("d");
@@ -48,7 +50,7 @@ public class PlayerMove : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetMouseButtonDown(0) && this._jumpCount < 1)
+        if (Input.GetMouseButtonDown(0) && this._jumpCount < 1 )//&& !_playerHide.IsHided)
         {
             this._rb.AddForce(transform.up * _jumpForce);
             _jumpCount++;
@@ -57,7 +59,7 @@ public class PlayerMove : MonoBehaviour
     }
     void Kill()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("サヨナラ");
         }
@@ -69,13 +71,15 @@ public class PlayerMove : MonoBehaviour
         {
             _jumpCount = 0;
         }
-        if (other.gameObject.CompareTag("haigo"))
-        {
-            Kill();
-        }
-    }
-    private void On
-    {
         
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "haigo")
+        {
+            Debug.Log("unu");
+            Kill();
+
+        }
     }
 }
