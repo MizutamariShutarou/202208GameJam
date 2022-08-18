@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     float _gameTime;
     int _deathCounts;
     bool _isAllKilled;
-
     /// <summary> インゲームのタイマー </summary>
     public float GameTime => _gameTime;
     /// <summary> 敵を倒した数 </summary>
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
     {
         _isAllKilled = true;
     }
-
 
     void Update()
     {
