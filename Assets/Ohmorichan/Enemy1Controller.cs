@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Enemy1Controller : MonoBehaviour
 {
@@ -16,6 +17,17 @@ public class Enemy1Controller : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        var GearSeq = DOTween.Sequence();
+
+        GearSeq.Append(
+         transform.DOMoveX(5f, 2f)
+            .SetRelative(true).SetDelay(1f));
+
+        GearSeq.Append(
+         transform.DOMoveX(-5f, 2f)
+            .SetRelative(true).SetDelay(1f));
+
+        GearSeq.SetLoops(-1);
     }
 
     void Update()
@@ -33,10 +45,5 @@ public class Enemy1Controller : MonoBehaviour
         }
         RaycastHit2D hit = Physics2D.Linecast(current, current + _lineLength, _wallLayer);
         RaycastHit2D hit2 = Physics2D.Linecast(current, (current + _lineLength) * -1f, _wallLayer);
-    }
-
-    void Move()
-    {
-
     }
 }
