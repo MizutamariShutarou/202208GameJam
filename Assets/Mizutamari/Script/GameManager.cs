@@ -37,5 +37,6 @@ public class GameManager : MonoBehaviour
         {
             _gameTime += Time.deltaTime;
         }
+
     }
 }
