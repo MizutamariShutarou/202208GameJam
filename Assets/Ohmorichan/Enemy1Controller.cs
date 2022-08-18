@@ -19,6 +19,7 @@ public class Enemy1Controller : MonoBehaviour
     Rigidbody2D _rb = default;
     Sequence _enemyMove;
     PlayerHide _playerHide;
+    bool _isFliped;
 
     public static Enemy1Controller instance;
     public void Awake()
@@ -36,11 +37,18 @@ public class Enemy1Controller : MonoBehaviour
 
         _enemyMove.Append(
          transform.DOMoveX(_moveDistance, 2f)
-            .SetRelative(true).SetDelay(1f));
+            .SetRelative(true).SetDelay(1f)
+            .OnComplete(OnFlipLeft));
+
 
         _enemyMove.Append(
          transform.DOMoveX(-_moveDistance, 2f)
-            .SetRelative(true).SetDelay(1f));
+            .SetRelative(true).SetDelay(1f)
+            .OnComplete(OnFlipRight));
+
+        //_enemyMove.Append(
+        // transform.DOMoveX(-_moveDistance, 2f)
+        //    .SetRelative(true).SetDelay(1f));
 
         _enemyMove.SetLoops(-1);
     }
@@ -57,25 +65,16 @@ public class Enemy1Controller : MonoBehaviour
         if (_isCastLine)
         {
             Debug.DrawLine(current, current + _lineLength);
-            Debug.DrawLine(current, current + _lineLength * -1f);
         }
 
         RaycastHit2D hit = Physics2D.Linecast(current, current + _lineLength, _wallLayer);
-        RaycastHit2D hit2 = Physics2D.Linecast(current, current + _lineLength * -1f, _wallLayer);
 
-        //if (hit.collider.gameObject.tag == "Player")
-        //{
-        //    Debug.Log("âEÇ…ìñÇΩÇ¡Ç∆Ç§ÇÊ" + hit.collider.gameObject.name);
-        //    _enemyMove.Pause();
-        //    _rb.velocity = new Vector2(1, 0);
-        //}
-
-        //if (hit2.collider.gameObject.tag == "Player")
-        //{
-        //    Debug.Log("ç∂Ç…ìñÇΩÇ¡Ç∆Ç§ÇÊ" + hit2.collider.gameObject.name);
-        //    _enemyMove.Pause();
-        //    _rb.velocity = new Vector2(-1, 0);
-        //}
+        if (hit.collider)
+        {
+            Debug.Log("âEÇ…ìñÇΩÇ¡Ç∆Ç§ÇÊ" + hit.collider.gameObject.name);
+            _enemyMove.Pause();
+            _rb.velocity = new Vector2(1, 0);
+        }
     }
 
     private void OnDestroy()
@@ -86,5 +85,15 @@ public class Enemy1Controller : MonoBehaviour
     public void EnemyDestroy()
     {
         Destroy(gameObject);
+    }
+    public void OnFlipLeft()
+    {
+        _lineLength *= -1f;
+        Debug.Log("1");
+    }
+    public void OnFlipRight()
+    {
+        _lineLength *= -1f;
+        Debug.Log("2");
     }
 }
