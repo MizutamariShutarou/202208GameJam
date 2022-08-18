@@ -22,7 +22,6 @@ public class PlayerHide : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_canHideFlag);
         if (Input.GetMouseButtonDown(1) && _canHideFlag)
         {
             Hide(false);

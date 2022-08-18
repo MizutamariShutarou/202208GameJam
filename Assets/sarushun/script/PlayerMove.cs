@@ -7,12 +7,13 @@ public class PlayerMove : MonoBehaviour
 {
     private Rigidbody2D  _rb;
     [SerializeField, Tooltip("移動速度")]
-    float speed;
+    float _speed;
     [SerializeField,Tooltip("ジャンプ力")] 
     int _jumpForce;
     private int _jumpCount = 0;
     PlayerHide _playerHide;
     SpriteRenderer _sr;
+    //bool _isKilled;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +26,15 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
-        //Kill();
+        Kill();
     }
     void Move()
     {
         float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
 
-        Vector2 direction = new Vector2(h, 0).normalized;
-
-        // 移動する向きとスピードを代入 
-        GetComponent<Rigidbody2D>().velocity = direction * speed;
+        Vector2 direction = new Vector2(h, 0);
+        _rb.velocity = direction.normalized * _speed + new Vector2(0, _rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -50,16 +49,22 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && this._jumpCount < 1 )//&& !_playerHide.IsHided)
         {
-            this._rb.AddForce(transform.up * _jumpForce);
+            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             _jumpCount++;
         }
 
     }
     void Kill()
     {
-        if(Input.GetMouseButtonDown(0))
+        //if(_isKilled && Input.GetMouseButtonDown(0))
+        //{
+        //    Enemy1Controller.instance.EnemyDestroy();
+        //    _isKilled = false;
+        //}
+        if(Enemy1Controller.instance.IsKilled && Input.GetMouseButtonDown(0))
         {
             Enemy1Controller.instance.EnemyDestroy();
+            Enemy1Controller.instance.IsKilled = false;
         }
     }
 
@@ -71,12 +76,12 @@ public class PlayerMove : MonoBehaviour
         }
         
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "haigo")
-        {
-            Debug.Log("背後にいる");
-            Kill();
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "haigo")
+    //    {
+    //        Debug.Log("背後にいる");
+    //        _isKilled = true;
+    //    }
+    //}
 }
