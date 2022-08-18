@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     bool IsAllKilled => _isAllKilled;
     static public GameManager Instance = new GameManager();
 
+    [SerializeField, Tooltip("“|‚·“G‚Ì”")] int _maxEnemyNum = 10;
+
     /// <summary>
     /// “G‚ğ“|‚µ‚½‚çŒÄ‚Ô
     /// </summary>
@@ -28,7 +30,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OllKilled()
     {
-        _isAllKilled = true;
+        if(_deathCounts >= _maxEnemyNum)
+        {
+            _isAllKilled = true;
+        }
     }
 
     void Update()

@@ -37,20 +37,18 @@ public class PlayerMove : MonoBehaviour
         // 移動する向きとスピードを代入 
         GetComponent<Rigidbody2D>().velocity = direction * speed;
 
-        if (Input.GetKeyDown(KeyCode.A))// && !_playerHide.IsHided)
+        if (Input.GetKeyDown(KeyCode.A))
         {
             _sr.flipX = true;
-            Debug.Log("a");
         }
-        if (Input.GetKeyDown(KeyCode.D) )//&& !_playerHide.IsHided)
+        if (Input.GetKeyDown(KeyCode.D))
         {
             _sr.flipX = false;
-            Debug.Log("d");
         }
     }
     void Jump()
     {
-        if (Input.GetMouseButtonDown(0) && this._jumpCount < 1 )//&& !_playerHide.IsHided)
+        if (Input.GetKeyDown(KeyCode.Space) && this._jumpCount < 1 )//&& !_playerHide.IsHided)
         {
             this._rb.AddForce(transform.up * _jumpForce);
             _jumpCount++;
@@ -59,9 +57,9 @@ public class PlayerMove : MonoBehaviour
     }
     void Kill()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log("サヨナラ");
+            Enemy1Controller.instance.EnemyDestroy();
         }
     }
 
@@ -77,9 +75,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.gameObject.tag == "haigo")
         {
-            Debug.Log("unu");
+            Debug.Log("背後にいる");
             Kill();
-
         }
     }
 }
