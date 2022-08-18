@@ -2,26 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gettag : MonoBehaviour
+public class HideObject : MonoBehaviour
 {
-    public bool flag;
+    bool _canHideFlag;
 
-    public bool Flag { get => flag; set => flag = value; }
+    public bool Flag
+    {
+        get { return _canHideFlag; }
+        set { _canHideFlag = value; }
+    }
+
+
     // Start is called before the first frame update
 
     private void Start()
     {
-        flag=false;
+        _canHideFlag = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag ("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            flag = true;
+            _canHideFlag = true;
         }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        flag = false;
+        _canHideFlag = false;
     }
 }
