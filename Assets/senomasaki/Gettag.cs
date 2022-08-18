@@ -5,6 +5,8 @@ using UnityEngine;
 public class Gettag : MonoBehaviour
 {
     public bool flag;
+
+    public bool Flag { get => flag; set => flag = value; }
     // Start is called before the first frame update
 
     private void Start()
@@ -20,6 +22,6 @@ public class Gettag : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        flag = true;
+        flag = false;
     }
 }
