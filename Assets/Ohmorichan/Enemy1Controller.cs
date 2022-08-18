@@ -13,19 +13,23 @@ public class Enemy1Controller : MonoBehaviour
     [SerializeField] Vector2 _lineLength = Vector2.right;
     [Tooltip("Castするレイヤー")]
     [SerializeField] LayerMask _wallLayer = 0;
+    /// <summary>通常の状態で左右に動く距離</summary>
+    [Header("通常の状態で左右に動く距離")]
+    [SerializeField] float _moveDistance = 5f;
     Rigidbody2D _rb = default;
     Sequence _enemyMove;
+    PlayerHide _playerHide;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _enemyMove = DOTween.Sequence();
 
         _enemyMove.Append(
-         transform.DOMoveX(5f, 2f)
+         transform.DOMoveX(_moveDistance, 2f)
             .SetRelative(true).SetDelay(1f));
 
         _enemyMove.Append(
-         transform.DOMoveX(-5f, 2f)
+         transform.DOMoveX(_moveDistance, 2f)
             .SetRelative(true).SetDelay(1f));
 
         _enemyMove.SetLoops(-1);
@@ -49,14 +53,14 @@ public class Enemy1Controller : MonoBehaviour
         RaycastHit2D hit = Physics2D.Linecast(current, current + _lineLength, _wallLayer);
         RaycastHit2D hit2 = Physics2D.Linecast(current, current + _lineLength * -1f, _wallLayer);
 
-        if (hit.collider/*.gameObject.tag == "Player"*/)
+        if (hit.collider/*.gameObject.tag == "Player"*/ && !_playerHide.IsHided)
         {
             Debug.Log("右に当たっとうよ" + hit.collider.gameObject.name);
             _enemyMove.Pause();
             _rb.velocity = new Vector2(1, 0);
         }
 
-        if (hit2.collider.gameObject.tag == "Player")
+        if (hit2.collider.gameObject.tag == "Player" && !_playerHide.IsHided)
         {
             Debug.Log("左に当たっとうよ" + hit2.collider.gameObject.name);
             _enemyMove.Pause();
