@@ -14,20 +14,21 @@ public class Enemy1Controller : MonoBehaviour
     [Tooltip("CastÇ∑ÇÈÉåÉCÉÑÅ[")]
     [SerializeField] LayerMask _wallLayer = 0;
     Rigidbody2D _rb = default;
+    Sequence _enemyMove;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        var GearSeq = DOTween.Sequence();
+        _enemyMove = DOTween.Sequence();
 
-        GearSeq.Append(
+        _enemyMove.Append(
          transform.DOMoveX(5f, 2f)
             .SetRelative(true).SetDelay(1f));
 
-        GearSeq.Append(
+        _enemyMove.Append(
          transform.DOMoveX(-5f, 2f)
             .SetRelative(true).SetDelay(1f));
 
-        GearSeq.SetLoops(-1);
+        _enemyMove.SetLoops(-1);
     }
 
     void Update()
@@ -38,12 +39,33 @@ public class Enemy1Controller : MonoBehaviour
     void Draw()
     {
         Vector2 current = this.transform.position;
+
         if (_isCastLine)
         {
             Debug.DrawLine(current, current + _lineLength);
             Debug.DrawLine(current, current + _lineLength * -1f);
         }
+
         RaycastHit2D hit = Physics2D.Linecast(current, current + _lineLength, _wallLayer);
-        RaycastHit2D hit2 = Physics2D.Linecast(current, (current + _lineLength) * -1f, _wallLayer);
+        RaycastHit2D hit2 = Physics2D.Linecast(current, current + _lineLength * -1f, _wallLayer);
+
+        if (hit.collider/*.gameObject.tag == "Player"*/)
+        {
+            Debug.Log("âEÇ…ìñÇΩÇ¡Ç∆Ç§ÇÊ" + hit.collider.gameObject.name);
+            _enemyMove.Pause();
+            _rb.velocity = new Vector2(1, 0);
+        }
+
+        if (hit2.collider.gameObject.tag == "Player")
+        {
+            Debug.Log("ç∂Ç…ìñÇΩÇ¡Ç∆Ç§ÇÊ" + hit2.collider.gameObject.name);
+            _enemyMove.Pause();
+            _rb.velocity = new Vector2(-1, 0);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.EnemyDeath();
     }
 }
