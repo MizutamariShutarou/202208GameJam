@@ -68,4 +68,9 @@ public class Enemy1Controller : MonoBehaviour
     {
         GameManager.Instance.EnemyDeath();
     }
+
+    public void EnemyDestroy()
+    {
+        Destroy(gameObject);
+    }
 }
