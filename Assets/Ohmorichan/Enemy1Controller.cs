@@ -173,14 +173,6 @@ public class Enemy1Controller : MonoBehaviour
     {
         Debug.Log(_isKilled);
         Draw();
-        if (Mathf.Abs(_player.transform.position.x - this.gameObject.transform.position.x) <= _killDistance)
-        {
-            _isKilled = true;
-        }
-        else
-        {
-            _isKilled = false;
-        }
     }
 
     void Draw()
@@ -207,7 +199,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             if (!_isMoved)
             {
-                _enemyMove.Restart();
+                _enemyMove.Play();
                 OnFlipRight();
                 _isMoved = true;
             }
