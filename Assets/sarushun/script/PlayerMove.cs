@@ -10,16 +10,23 @@ public class PlayerMove : MonoBehaviour
     float _speed;
     [SerializeField, Tooltip("ƒWƒƒƒ“ƒv—Í")]
     int _jumpForce;
-    [SerializeField] GameObject _enemy;
+    [SerializeField] GameObject[] _enemys;
+    [SerializeField] GameObject _enemyMuzzle;
     [SerializeField] float _radius;
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] float _distance;
     private int _jumpCount = 0;
     PlayerHide _playerHide;
     SpriteRenderer _sr;
-    //bool _isKilled;
-    void Start()
+    bool _korosu;
+
+    public bool Korosu
     {
+        get { return _korosu; }
+        set { _korosu = value; }
+    }
+    void Start()
+    { 
         _rb = GetComponent<Rigidbody2D>();
         this._sr = GetComponent<SpriteRenderer>();
     }
@@ -32,17 +39,17 @@ public class PlayerMove : MonoBehaviour
         Collider[] targets = Physics.OverlapSphere(transform.position, _radius, _enemyLayer);
         foreach (var enemys in targets)
         {
-            _enemy = enemys.gameObject;
+            _enemyMuzzle = enemys.gameObject;
         }
-        if (_enemy != null)
+        if (_enemyMuzzle != null)
         {
-            float dis = Vector2.Distance(this.gameObject.transform.position, _enemy.gameObject.transform.position);
+            float dis = Vector2.Distance(this.gameObject.transform.position, _enemyMuzzle.gameObject.transform.position);
             if (dis <= _distance && Enemy1Controller.instance.IsKilled)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     Debug.Log("Click");
-                    Kill();
+                    _korosu = true;
                 }
             }
         }
@@ -72,11 +79,6 @@ public class PlayerMove : MonoBehaviour
             _jumpCount++;
         }
 
-    }
-    void Kill()
-    {
-        Enemy1Controller.instance.EnemyDestroy();
-        Debug.Log("Kill");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
