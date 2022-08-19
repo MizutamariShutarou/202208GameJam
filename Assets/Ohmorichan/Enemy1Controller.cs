@@ -148,8 +148,8 @@ public class Enemy1Controller : MonoBehaviour
     {
         _isMoved = true;
         //_isKilled = true;
-        this._playerMove = FindObjectOfType<PlayerMove>();
-        bool k = _playerMove.Korosu;
+        //this._playerMove = FindObjectOfType<PlayerMove>();
+        //bool k = _playerMove.Korosu;
         _playerHide = FindObjectOfType<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
@@ -177,9 +177,9 @@ public class Enemy1Controller : MonoBehaviour
     {
         //Debug.Log($"_isKilled = {_isKilled}");
         Draw();
-        if (_playerMove.Korosu)
+        if (!_isMoved)
         {
-            Destroy(this.gameObject);
+            transform.LookAt(_player.transform);
         }
     }
 
@@ -236,12 +236,14 @@ public class Enemy1Controller : MonoBehaviour
     {
         _lineLength *= -1f;
         //Debug.Log("1");
+        transform.localScale = new Vector3(-1f, 1f, 1f);
     }
     public void OnFlipRight()
     {
         _lineLength *= -1f;
         _sr.flipX = false;
         //Debug.Log("2");
+        transform.localScale = Vector3.one;
     }
 }
 
