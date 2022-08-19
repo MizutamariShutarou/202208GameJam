@@ -92,6 +92,12 @@ public class PlayerMove : MonoBehaviour
         {
             _jumpCount = 0;
         }
+        string layerName = LayerMask.LayerToName(other.gameObject.layer);
+
+        if (layerName == "Water")
+        {
+            this.gameObject.SetActive(false);
+        }
 
     }
     private void OnTriggerStay2D(Collider2D collision)
