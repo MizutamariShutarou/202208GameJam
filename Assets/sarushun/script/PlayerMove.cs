@@ -10,21 +10,22 @@ public class PlayerMove : MonoBehaviour
     float _speed;
     [SerializeField, Tooltip("ƒWƒƒƒ“ƒv—Í")]
     int _jumpForce;
-    [SerializeField] GameObject[] _enemys;
-    [SerializeField] GameObject _enemyMuzzle;
-    [SerializeField] float _radius;
-    [SerializeField] LayerMask _enemyLayer;
-    [SerializeField] float _distance;
+    //[SerializeField] GameObject[] _enemys;
+    //[SerializeField] GameObject _enemyMuzzle;
+    //[SerializeField] float _radius;
+    //[SerializeField] LayerMask _enemyLayer;
+    //[SerializeField] float _distance;
     private int _jumpCount = 0;
     PlayerHide _playerHide;
     SpriteRenderer _sr;
-    bool _korosu;
+    bool _isKilled;
+    //bool _korosu;
 
-    public bool Korosu
-    {
-        get { return _korosu; }
-        set { _korosu = value; }
-    }
+    //public bool Korosu
+    //{
+    //    get { return _korosu; }
+    //    set { _korosu = value; }
+    //}
     void Start()
     { 
         _rb = GetComponent<Rigidbody2D>();
@@ -36,23 +37,23 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
-        Collider[] targets = Physics.OverlapSphere(transform.position, _radius, _enemyLayer);
-        foreach (var enemys in targets)
-        {
-            _enemyMuzzle = enemys.gameObject;
-        }
-        if (_enemyMuzzle != null)
-        {
-            float dis = Vector2.Distance(this.gameObject.transform.position, _enemyMuzzle.gameObject.transform.position);
-            if (dis <= _distance && Enemy1Controller.instance.IsKilled)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Debug.Log("Click");
-                    _korosu = true;
-                }
-            }
-        }
+        //Collider[] targets = Physics.OverlapSphere(transform.position, _radius, _enemyLayer);
+        //foreach (var enemys in targets)
+        //{
+        //    _enemyMuzzle = enemys.gameObject;
+        //}
+        //if (_enemyMuzzle != null)
+        //{
+        //    float dis = Vector2.Distance(this.gameObject.transform.position, _enemyMuzzle.gameObject.transform.position);
+        //    if (dis <= _distance && Enemy1Controller.instance.IsKilled)
+        //    {
+        //        if (Input.GetMouseButtonDown(0))
+        //        {
+        //            Debug.Log("Click");
+        //            _korosu = true;
+        //        }
+        //    }
+        //}
     }
     void Move()
     {
@@ -80,6 +81,10 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
+    void Kill()
+    {
+        
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -89,17 +94,25 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "haigo")
-    //    {
-    //        Debug.Log("”wŒã‚É‚¢‚é");
-    //        _isKilled = true;
-    //    }
-    //}
-    private void OnDrawGizmosSelected()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _distance);
+        if (collision.gameObject.tag == "haigo")
+        {
+            Debug.Log("”wŒã‚É‚¢‚é");
+            if (Input.GetMouseButtonDown(0))
+            {
+                collision.gameObject.GetComponent<Enemy1Controller>().EnemyDestroy();
+            }
+
+        }
+        else
+        {
+            _isKilled = false;
+        }
     }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, _distance);
+    //}
 }
