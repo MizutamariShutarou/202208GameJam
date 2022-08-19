@@ -368,6 +368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot1
       objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: 76febfd6ed03e0b4fa26f4ad271572d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7561113526181806574, guid: 76febfd6ed03e0b4fa26f4ad271572d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.832293
@@ -698,6 +702,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _moveDistance: 5
+  _player: {fileID: 0}
+  _killDistance: 0
+  _deadEffect: {fileID: 0}
 --- !u!70 &1070480941
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -852,6 +859,14 @@ PrefabInstance:
     - target: {fileID: 5796664282677671415, guid: 920a3d52f38ba0642b61eee9b9ad81ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796664282677671417, guid: 920a3d52f38ba0642b61eee9b9ad81ca, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 684372988}
+    - target: {fileID: 5796664282677671417, guid: 920a3d52f38ba0642b61eee9b9ad81ca, type: 3}
+      propertyPath: _killDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5796664282677671418, guid: 920a3d52f38ba0642b61eee9b9ad81ca, type: 3}
       propertyPath: m_Constraints
