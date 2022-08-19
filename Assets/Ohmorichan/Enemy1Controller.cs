@@ -119,7 +119,7 @@ public class Enemy1Controller : MonoBehaviour
     [Header("’Êí‚Ìó‘Ô‚Å¶‰E‚É“®‚­‹——£")]
     [SerializeField] float _moveDistance = 5f;
     [SerializeField] GameObject _player;
-    [SerializeField, Tooltip("E‚¹‚é”ÍˆÍ")] float _killDistance;
+    //[SerializeField, Tooltip("E‚¹‚é”ÍˆÍ")] float _killDistance;
     /// <summary>“G‚ª€–S‚µ‚½‚ÌƒAƒjƒ[ƒVƒ‡ƒ“</summary>
     [SerializeField] GameObject _deadEffect;
 
@@ -146,6 +146,7 @@ public class Enemy1Controller : MonoBehaviour
     void Start()
     {
         _isMoved = true;
+        _isKilled = true;
         _playerHide = FindObjectOfType<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
@@ -192,7 +193,7 @@ public class Enemy1Controller : MonoBehaviour
             _isKilled = false;
             _enemyMove.Pause();
             _isMoved = false;
-            _rb.velocity = (hit.collider.transform.position - this.transform.position).normalized;
+            _rb.velocity = (_player.gameObject.transform.position - this.transform.position).normalized;
         }
 
         if (_playerHide.IsHided)
@@ -203,7 +204,6 @@ public class Enemy1Controller : MonoBehaviour
                 OnFlipRight();
                 _isMoved = true;
             }
-
             _isKilled = true;
         }
 
