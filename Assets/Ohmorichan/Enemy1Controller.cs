@@ -177,6 +177,10 @@ public class Enemy1Controller : MonoBehaviour
     {
         //Debug.Log($"_isKilled = {_isKilled}");
         Draw();
+        if (!_isMoved)
+        {
+            transform.LookAt(_player.transform);
+        }
     }
 
     void Draw()
