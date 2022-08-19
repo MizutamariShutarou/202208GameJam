@@ -22,13 +22,14 @@ public class PlayerHide : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"_isHided = {_isHided}");
         if (Input.GetMouseButtonDown(1) && _canHideFlag)
         {
+            //gameObject.transform.localScale = new Vector3(0, 0, 0);
             Hide(false);
         }
         if(Input.GetMouseButtonDown(1) && !_canHideFlag)
         {
+            //gameObject.transform.localScale = new Vector3(1, 1, 1);
             Hide(true);
         }
     }

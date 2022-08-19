@@ -55,6 +55,11 @@ public class PlayerMove : MonoBehaviour
         //    }
         //}
     }
+
+    private void OnDestroy()
+    {
+        SceneChanger.Instance.Changescene();
+    }
     void Move()
     {
         float h = Input.GetAxis("Horizontal");
@@ -65,11 +70,11 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _sr.flipX = true;
+            transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            _sr.flipX = false;
+            transform.localScale = new Vector3(-0.7f, 0.7f, 0.7f);
         }
     }
     void Jump()
@@ -81,10 +86,6 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-    void Kill()
-    {
-        
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -92,12 +93,12 @@ public class PlayerMove : MonoBehaviour
         {
             _jumpCount = 0;
         }
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
+        //string layerName = LayerMask.LayerToName(other.gameObject.layer);
 
-        if (layerName == "Water")
-        {
-            this.gameObject.SetActive(false);
-        }
+        //if (layerName == "Water")
+        //{
+        //   Destroy(gameObject);
+        //}
 
     }
     private void OnTriggerStay2D(Collider2D collision)

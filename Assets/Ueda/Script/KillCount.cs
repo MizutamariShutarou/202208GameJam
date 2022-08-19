@@ -6,10 +6,10 @@ public class KillCount : MonoBehaviour
 {
     int _killCount;
     [SerializeField] int _totalEnemy = 0;
-   [SerializeField]Text _killCountText = null;
-    public void KillCountPlus()
+    [SerializeField]Text _killCountText = null;
+    public void Update()
     {
         _killCount = GameManager.Instance.DeathCount;
-        _killCountText.text = "KILL : " +_killCount + " / " + _totalEnemy ; 
+        _killCountText.text = "KILL : " + _killCount + " / " + _totalEnemy ; 
     }
 }
