@@ -196,7 +196,7 @@ public class Enemy1Controller : MonoBehaviour
 
         if (hit.collider && !_playerHide.IsHided)
         {
-            Debug.Log("‰E‚É“–‚½‚Á‚Æ‚¤‚æ" + hit.collider.gameObject.name);
+            //Debug.Log("‰E‚É“–‚½‚Á‚Æ‚¤‚æ" + hit.collider.gameObject.name);
             _isKilled = false;
             _enemyMove.Pause();
             _isMoved = false;
@@ -208,6 +208,7 @@ public class Enemy1Controller : MonoBehaviour
             if (!_isMoved)
             {
                 _enemyMove.Restart();
+                OnFlipRight();
                 _isMoved = true;
             }
 
@@ -234,13 +235,13 @@ public class Enemy1Controller : MonoBehaviour
     public void OnFlipLeft()
     {
         _lineLength *= -1f;
-        Debug.Log("1");
+        //Debug.Log("1");
     }
     public void OnFlipRight()
     {
         _lineLength *= -1f;
         _sr.flipX = false;
-        Debug.Log("2");
+        //Debug.Log("2");
     }
 }
 
