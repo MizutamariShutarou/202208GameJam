@@ -5,16 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Rigidbody2D  _rb;
+    private Rigidbody2D _rb;
     [SerializeField, Tooltip("移動速度")]
     float _speed;
-    [SerializeField,Tooltip("ジャンプ力")] 
+    [SerializeField, Tooltip("ジャンプ力")]
     int _jumpForce;
+    [SerializeField] GameObject _enemy;
+    [SerializeField] float _radius;
+    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] float _distance;
     private int _jumpCount = 0;
     PlayerHide _playerHide;
     SpriteRenderer _sr;
     //bool _isKilled;
-    // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -26,7 +29,23 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Jump();
-        Kill();
+        Collider[] targets = Physics.OverlapSphere(transform.position, _radius, _enemyLayer);
+        foreach (var enemys in targets)
+        {
+            _enemy = enemys.gameObject;
+        }
+        if (_enemy != null)
+        {
+            float dis = Vector2.Distance(this.gameObject.transform.position, _enemy.gameObject.transform.position);
+            if (dis <= _distance && Enemy1Controller.instance.IsKilled)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("Click");
+                    Kill();
+                }
+            }
+        }
     }
     void Move()
     {
@@ -47,7 +66,7 @@ public class PlayerMove : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && this._jumpCount < 1 )//&& !_playerHide.IsHided)
+        if (Input.GetKeyDown(KeyCode.Space) && this._jumpCount < 1)//&& !_playerHide.IsHided)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             _jumpCount++;
@@ -56,16 +75,8 @@ public class PlayerMove : MonoBehaviour
     }
     void Kill()
     {
-        //if(_isKilled && Input.GetMouseButtonDown(0))
-        //{
-        //    Enemy1Controller.instance.EnemyDestroy();
-        //    _isKilled = false;
-        //}
-        //if(Enemy1Controller.instance.IsKilled && Input.GetMouseButtonDown(0))//EnemyScriptをどうするか
-        //{
-        //    Enemy1Controller.instance.EnemyDestroy();
-        //    Enemy1Controller.instance.IsKilled = false;
-        //}
+        Enemy1Controller.instance.EnemyDestroy();
+        Debug.Log("Kill");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -74,7 +85,7 @@ public class PlayerMove : MonoBehaviour
         {
             _jumpCount = 0;
         }
-        
+
     }
     //private void OnTriggerStay2D(Collider2D collision)
     //{
@@ -84,4 +95,9 @@ public class PlayerMove : MonoBehaviour
     //        _isKilled = true;
     //    }
     //}
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _distance);
+    }
 }
