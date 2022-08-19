@@ -146,6 +146,7 @@ public class Enemy1Controller : MonoBehaviour
     void Start()
     {
         _isMoved = true;
+        _isKilled = true;
         _playerHide = FindObjectOfType<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
@@ -195,7 +196,7 @@ public class Enemy1Controller : MonoBehaviour
             _rb.velocity = (hit.collider.transform.position - this.transform.position).normalized;
         }
 
-        if (_playerHide.IsHided)
+        if (_playerHide.IsHided && !hit.collider)
         {
             if (!_isMoved)
             {
