@@ -119,6 +119,7 @@ public class Enemy1Controller : MonoBehaviour
     [Header("通常の状態で左右に動く距離")]
     [SerializeField] float _moveDistance = 5f;
     [SerializeField] GameObject _player;
+    [SerializeField] float _speed;
     //[SerializeField, Tooltip("殺せる範囲")] float _killDistance;
     /// <summary>敵が死亡した時のアニメーション</summary>
     [SerializeField] GameObject _deadEffect;
@@ -179,7 +180,8 @@ public class Enemy1Controller : MonoBehaviour
         Draw();
         if (!_isMoved)
         {
-            transform.LookAt(_player.transform);
+             //transform.LookAt(_player.transform);
+             _rb.velocity = (_player.gameObject.transform.position - this.transform.position).normalized * _speed;
         }
     }
 
@@ -200,7 +202,7 @@ public class Enemy1Controller : MonoBehaviour
             //_isKilled = false;
             _enemyMove.Pause();
             _isMoved = false;
-            _rb.velocity = (_player.gameObject.transform.position - this.transform.position).normalized;
+            //_rb.velocity = (_player.gameObject.transform.position - this.transform.position).normalized;
         }
 
         if (_playerHide.IsHided)
