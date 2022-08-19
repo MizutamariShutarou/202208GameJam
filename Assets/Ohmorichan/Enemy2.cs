@@ -27,13 +27,13 @@ public class Enemy2 : MonoBehaviour
     PlayerHide _playerHide;
     PlayerMove _playerMove;
     bool _isMoved;
-    bool _isKilled;
+    //bool _isKilled;
 
-    public bool IsKilled
-    {
-        get { return _isKilled; }
-        set { _isKilled = value; }
-    }
+    //public bool IsKilled
+    //{
+    //    get { return _isKilled; }
+    //    set { _isKilled = value; }
+    //}
     public static Enemy2 instance;
     public void Awake()
     {
@@ -45,9 +45,9 @@ public class Enemy2 : MonoBehaviour
     void Start()
     {
         _isMoved = true;
-        _isKilled = true;
+        //_isKilled = true;
         this._playerMove = FindObjectOfType<PlayerMove>();
-        bool k = _playerMove.Korosu;
+        //bool k = _playerMove.Korosu;
         _playerHide = FindObjectOfType<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
@@ -73,12 +73,12 @@ public class Enemy2 : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"_isKilled = {_isKilled}");
+        //Debug.Log($"_isKilled = {_isKilled}");
         Draw();
-        if (_playerMove.Korosu)
-        {
-            Destroy(this.gameObject);
-        }
+        //if (_playerMove.Korosu)
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
 
     void Draw()
@@ -95,7 +95,7 @@ public class Enemy2 : MonoBehaviour
         if (hit.collider && !_playerHide.IsHided)
         {
             //Debug.Log("‰E‚É“–‚½‚Á‚Æ‚¤‚æ" + hit.collider.gameObject.name);
-            _isKilled = false;
+            //_isKilled = false;
             _enemyMove.Pause();
             _isMoved = false;
             _rb.velocity = (_player.gameObject.transform.position - this.transform.position).normalized;
@@ -109,7 +109,7 @@ public class Enemy2 : MonoBehaviour
                 OnFlipRight();
                 _isMoved = true;
             }
-            _isKilled = true;
+            //_isKilled = true;
         }
 
 
@@ -126,10 +126,10 @@ public class Enemy2 : MonoBehaviour
         }
     }
 
-    //public void EnemyDestroy()
-    //{
-    //    Destroy(this.gameObject);
-    //}
+    public void EnemyDestroy()
+    {
+        Destroy(this.gameObject);
+    }
     public void OnFlipLeft()
     {
         _lineLength *= -1f;
@@ -142,3 +142,4 @@ public class Enemy2 : MonoBehaviour
         //Debug.Log("2");
     }
 }
+
