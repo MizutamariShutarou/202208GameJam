@@ -19,7 +19,7 @@ public class Enemy1Controller : MonoBehaviour
     Rigidbody2D _rb = default;
     Sequence _enemyMove;
     PlayerHide _playerHide;
-    bool _isFliped;
+    bool _isMove;
 
     public static Enemy1Controller instance;
     public void Awake()
@@ -31,6 +31,7 @@ public class Enemy1Controller : MonoBehaviour
     }
     void Start()
     {
+        _isMove = true;
         transform.localScale = new Vector3(-1f, 1f, 1f);
         _playerHide = GetComponent<PlayerHide>();
         _rb = GetComponent<Rigidbody2D>();
@@ -74,7 +75,16 @@ public class Enemy1Controller : MonoBehaviour
         {
             Debug.Log("‰E‚É“–‚½‚Á‚Æ‚¤‚æ" + hit.collider.gameObject.name);
             _enemyMove.Pause();
+            _isMove = false;
             _rb.velocity = (hit.collider.transform.position - this.transform.position).normalized;
+        }
+        else
+        {
+            if (!_isMove)
+            {
+                _enemyMove.Restart();
+                _isMove = true;
+            }
         }
     }
 
