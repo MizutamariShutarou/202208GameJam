@@ -209,7 +209,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             if (!_isMoved)
             {
-                _enemyMove.Play();
+                _enemyMove.Restart();
                 OnFlipRight();
                 _isMoved = true;
             }
@@ -223,6 +223,7 @@ public class Enemy1Controller : MonoBehaviour
     {
        // _playerMove.Korosu = false;
         GameManager.Instance.EnemyDeath();
+        ScoreCount.instance.KillCountPlus(100);
 
         if (_deadEffect)
         {
@@ -237,15 +238,15 @@ public class Enemy1Controller : MonoBehaviour
     public void OnFlipLeft()
     {
         _lineLength *= -1f;
-        //Debug.Log("1");
-        transform.localScale = new Vector3(-1f, 1f, 1f);
+        Debug.Log("1");
+        transform.localScale = Vector3.one;
     }
     public void OnFlipRight()
     {
         _lineLength *= -1f;
         _sr.flipX = false;
-        //Debug.Log("2");
-        transform.localScale = Vector3.one;
+        Debug.Log("2");
+        transform.localScale = new Vector3(-1f, 1f, 1f);
     }
 }
 
