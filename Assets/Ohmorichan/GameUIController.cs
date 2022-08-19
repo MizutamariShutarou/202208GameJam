@@ -14,6 +14,8 @@ public class GameUIController: MonoBehaviour
         _resurltUI.SetActive(false);
     }
 
+   
+
     // Update is called once per frame
     public void Result()
     {
