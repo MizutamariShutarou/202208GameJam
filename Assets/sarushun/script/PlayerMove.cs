@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneChanger.Instance.Changescene();
+        SceneChanger.Instance.ChangeScene();
     }
     void Move()
     {
@@ -109,6 +109,7 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 collision.gameObject.GetComponent<Enemy1Controller>().EnemyDestroy();
+                ScoreCount.instance.KillCountPlus(100);
             }
 
         }

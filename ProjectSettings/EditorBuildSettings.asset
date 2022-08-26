@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Ohmorichan/Title.unity
+    guid: 22d9e1bedf790444db1c477117984f67
+  - enabled: 1
+    path: Assets/MainFolder/TestMainGameScene.unity
+    guid: a87685980d2657b49b0500129b34152b
+  - enabled: 1
+    path: Assets/Ueda/GameOver.unity
+    guid: 68ff12c66ab2b944b9caea7cda9ffb3c
+  - enabled: 1
+    path: Assets/MainFolder/GameClear.unity
+    guid: cf72ae50ca0c8924abaf9a3bf736c06a
+  - enabled: 1
+    path: Assets/Mizutamari/Scene/Explanation.unity
+    guid: 83886ce5ecc36b84f929ecc79a99ff36
   m_configObjects: {}
