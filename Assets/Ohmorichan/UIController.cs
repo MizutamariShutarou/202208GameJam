@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     {
         _maegaki.SetActive(false);
         _maegaki2.SetActive(false);
+        GameManager.Instance.DeathCount = 0;
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class SceneChanger : MonoBehaviour
     [SerializeField, Tooltip("‘JˆÚ‚·‚éƒV[ƒ“–¼")] string _nextSceneName;
 
     static public SceneChanger Instance = new SceneChanger();
-    public void Changescene()
+    public void ChangeScene()
    {
         SceneManager.LoadScene(_nextSceneName);
    }

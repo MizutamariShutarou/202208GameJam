@@ -210,7 +210,7 @@ public class Enemy1Controller : MonoBehaviour
             if (!_isMoved)
             {
                 _enemyMove.Restart();
-                OnFlipRight();
+                //OnFlipRight();
                 _isMoved = true;
             }
             //_isKilled = true;
@@ -223,7 +223,7 @@ public class Enemy1Controller : MonoBehaviour
     {
        // _playerMove.Korosu = false;
         GameManager.Instance.EnemyDeath();
-        ScoreCount.instance.KillCountPlus(100);
+        
 
         if (_deadEffect)
         {

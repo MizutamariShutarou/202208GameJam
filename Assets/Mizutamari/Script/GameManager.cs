@@ -10,9 +10,13 @@ public class GameManager : MonoBehaviour
     /// <summary> ƒCƒ“ƒQ[ƒ€‚Ìƒ^ƒCƒ}[ </summary>
     public float GameTime => _gameTime;
     /// <summary> “G‚ğ“|‚µ‚½” </summary>
-    public int DeathCount => _deathCounts;
+    public int DeathCount 
+    {
+        get { return _deathCounts; }
+        set { _deathCounts = value; }
+    }
     /// <summary> “G‚ğ‘Sˆõ“|‚µ‚½‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO(‘Sˆõ“|‚µ‚½‚çtrue) </summary>
-    bool IsAllKilled => _isAllKilled;
+    public bool IsAllKilled => _isAllKilled;
     static public GameManager Instance = new GameManager();
 
     [SerializeField, Tooltip("“|‚·“G‚Ì”")] int _maxEnemyNum = 10;
@@ -42,6 +46,5 @@ public class GameManager : MonoBehaviour
         {
             _gameTime += Time.deltaTime;
         }
-
     }
 }
